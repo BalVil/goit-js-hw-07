@@ -36,7 +36,6 @@ function onGalleryItemClick(event) {
 
   const originalImageURL = event.target.dataset.source;
   createModalImage(originalImageURL);
-  onCloseModal(originalImageURL);
 }
 
 function createModalImage(src) {
