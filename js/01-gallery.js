@@ -8,18 +8,6 @@ galleryRef.insertAdjacentHTML("beforeend", galleryMarkup);
 
 galleryRef.addEventListener("click", onGalleryItemClick);
 
-function onGalleryItemClick(event) {
-  event.preventDefault();
-
-  const isGalleryImageEl = event.target.classList.contains("gallery__image");
-  if (!isGalleryImageEl) {
-    return;
-  }
-  const originalImageURL = event.target.dataset.source;
-
-  createModalImageEl.show();
-}
-
 function createGalleryMarkup(items) {
   return items
     .map(({ original, preview, description }) => {
@@ -38,13 +26,43 @@ function createGalleryMarkup(items) {
     .join("");
 }
 
-const createModalImageEl = basicLightbox.create(
-  `
-    <img src="${originalImageURL}" width="800" height="600">
-`,
-  {
-    onShow: (instance) => {
-      instance.onclick = instance.close;
-    },
+function onGalleryItemClick(event) {
+  event.preventDefault();
+
+  const isGalleryImageEl = event.target.classList.contains("gallery__image");
+  if (!isGalleryImageEl) {
+    return;
   }
-);
+
+  const originalImageURL = event.target.dataset.source;
+  createModalImage(originalImageURL);
+  onCloseModal(originalImageURL);
+}
+
+function createModalImage(src) {
+  window.addEventListener("keydown", onEscKeyPress);
+  basicLightbox
+    .create(
+      `
+		<img src="${src}" width="1280" height="852">
+	`
+    )
+    .show();
+}
+
+function onCloseModal(src) {
+  window.removeEventListener("keydown", onEscKeyPress);
+  basicLightbox
+    .create(
+      `
+		<img src="${src}" width="1280" height="852">
+	`
+    )
+    .close();
+}
+
+function onEscKeyPress(event) {
+  if (event.code === "Escape") {
+    onCloseModal();
+  }
+}
