@@ -38,26 +38,20 @@ function onGalleryItemClick(event) {
   createModalImage(originalImageURL);
 }
 
+let modalImage;
 function createModalImage(src) {
   window.addEventListener("keydown", onEscKeyPress);
-  basicLightbox
-    .create(
-      `
+  modalImage = basicLightbox.create(
+    `
 		<img src="${src}" width="1280" height="852">
 	`
-    )
-    .show();
+  );
+  modalImage.show();
 }
 
-function onCloseModal(src) {
+function onCloseModal() {
   window.removeEventListener("keydown", onEscKeyPress);
-  basicLightbox
-    .create(
-      `
-		<img src="${src}" width="1280" height="852">
-	`
-    )
-    .close();
+  modalImage.close();
 }
 
 function onEscKeyPress(event) {

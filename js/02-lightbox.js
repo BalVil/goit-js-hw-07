@@ -1,8 +1,6 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
-console.log(galleryItems);
-
 const galleryRef = document.querySelector(".gallery");
 const galleryMarkup = createGalleryMarkup(galleryItems);
 
@@ -17,3 +15,9 @@ function createGalleryMarkup(items) {
     })
     .join("");
 }
+
+// add a caption display ('options' from SimpleLightbox)
+new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionDelay: 250,
+});
