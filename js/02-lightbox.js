@@ -9,9 +9,11 @@ galleryRef.insertAdjacentHTML("beforeend", galleryMarkup);
 function createGalleryMarkup(items) {
   return items
     .map(({ original, preview, description }) => {
-      return `<a class="gallery__item" href="${original}">
-  <img class="gallery__image" src="${preview}" alt="${description}" />
-</a>`;
+      return `<div class="gallery">
+  <a class="gallery__item" href="${original}">
+    <img class="gallery__image" src="${preview}" alt="${description}" />
+  </a>
+</div>`;
     })
     .join("");
 }
